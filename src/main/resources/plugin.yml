@@ -4,3 +4,7 @@ main: net.mov51.aspenhardcore.AspenHardCore
 api-version: 1.19
 authors: [ mov51 ]
 website: naspen.net
+commands:
+  newday:
+    description: 'Start a new day'
+    permission: 'aspenhardcore.newday'

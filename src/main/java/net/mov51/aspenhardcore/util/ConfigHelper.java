@@ -1,6 +1,6 @@
 package net.mov51.aspenhardcore.util;
 
-import net.mov51.aspenhardcore.events.NewMinecraftDay;
+import net.mov51.aspenhardcore.events.TimeSkip;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
@@ -48,7 +48,7 @@ public class ConfigHelper {
                 break;
             case "game-day":
                 System.out.println("Game Day");
-                plugin.getServer().getPluginManager().registerEvents(new NewMinecraftDay(), plugin);
+                plugin.getServer().getPluginManager().registerEvents(new TimeSkip(), plugin);
                 minecraftDayCounter.start();
                 break;
             case "command":

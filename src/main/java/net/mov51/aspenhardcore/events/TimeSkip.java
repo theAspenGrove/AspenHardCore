@@ -6,9 +6,9 @@ import org.bukkit.event.world.TimeSkipEvent;
 
 import static net.mov51.aspenhardcore.AspenHardCore.minecraftDayCounter;
 
-public class NewMinecraftDay implements Listener {
+public class TimeSkip implements Listener {
     @EventHandler
-    public void onNewDay(TimeSkipEvent event){
+    public void onTimeSkip(TimeSkipEvent event){
         System.out.println(event.getWorld().getGameTime());
         minecraftDayCounter.compareTime(event.getWorld().getFullTime(),event.getWorld(), event.getSkipAmount());
     }

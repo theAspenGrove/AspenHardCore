@@ -5,6 +5,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import static net.mov51.aspenhardcore.AspenHardCore.configHelper;
+import static net.mov51.aspenhardcore.util.dayCounting.DayCounter.newDay;
 
 public class MinecraftDayCounter {
     private long worldTime;
@@ -25,9 +26,6 @@ public class MinecraftDayCounter {
                 }
             }
         }.runTaskTimer(this.plugin, 0, configHelper.getTimeCheckFrequency());
-    }
-    public void newDay(){
-        System.out.println("DayCounter: New Day!");
     }
     private void addTime(long time){
         passedTime = passedTime + time;
