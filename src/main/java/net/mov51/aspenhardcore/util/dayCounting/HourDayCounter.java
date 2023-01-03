@@ -6,15 +6,29 @@ import static net.mov51.aspenhardcore.AspenHardCore.configHelper;
 import static net.mov51.aspenhardcore.AspenHardCore.logHelper;
 
 public class HourDayCounter {
+    Timer watchTimer = new Timer();
+    private final WatchTimeTask watchTimeTask = new WatchTimeTask();
+    Timer hourTimer = new Timer();
+    private boolean isRunning = false;
     public HourDayCounter(){
 
     }
     public void start(){
-        Timer timer = new Timer();
-        //runs after the first period and then every period after that
-        //currently fails if the server restarts mid day
-        //todo track progress on the timer and the cycle will be the remaining time on the day
-        timer.schedule(new HourDayTask(), getPeriod(), getPeriod());
+        watchTimer.schedule(this.watchTimeTask, 0, configHelper.getTimeCheckFrequency());
+        hourTimer.schedule(new HourDayTask(), (getPeriod() - getPassedTime()), getPeriod());
+        isRunning = true;
+    }
+    public void stop(){
+        this.watchTimer.cancel();
+        this.hourTimer.cancel();
+        isRunning = false;
+    }
+    private static class WatchTimeTask extends java.util.TimerTask{
+        protected long passedTime = configHelper.getSavedPassedTime();
+        @Override
+        public void run() {
+            this.passedTime = this.passedTime + configHelper.getTimeCheckFrequency();
+        }
     }
     private static class HourDayTask extends java.util.TimerTask {
         @Override
@@ -22,7 +36,15 @@ public class HourDayCounter {
             logHelper.sendLogInfo("New Day");
         }
     }
-    private static long getPeriod(){
+    private long getPeriod(){
         return configHelper.getHoursToDay() * 3600000L;
+    }
+
+    public long getPassedTime() {
+        logHelper.sendLogInfo("Passed Time: " + watchTimeTask.passedTime);
+        return this.watchTimeTask.passedTime;
+    }
+    public boolean isRunning(){
+        return isRunning;
     }
 }

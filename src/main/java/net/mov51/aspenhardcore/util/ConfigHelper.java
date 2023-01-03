@@ -37,6 +37,15 @@ public class ConfigHelper {
     public Long getTimeCheckFrequency(){
         return timeCheckFrequency;
     }
+    public void savePassedTime(long time){
+        plugin.getConfig().set("passed-time", time);
+        plugin.saveConfig();
+    }
+    public long getSavedPassedTime(){
+        System.out.println("getting saved passed time...");
+        System.out.println(plugin.getConfig().getLong("passed-time"));
+        return plugin.getConfig().getLong("passed-time");
+    }
     public World getWorld(){
         return world;
     }

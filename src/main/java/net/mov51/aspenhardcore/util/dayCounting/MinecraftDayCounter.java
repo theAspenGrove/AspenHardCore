@@ -19,7 +19,7 @@ public class MinecraftDayCounter {
         new BukkitRunnable() {
             @Override
             public void run() {
-                addTime(configHelper.getTicksToGameDay());
+                addTime((configHelper.getTimeCheckFrequency()/1000)*20);
                 if(passedTime > configHelper.getTicksToGameDay()){
                     passedTime = 0;
                     newDay();
