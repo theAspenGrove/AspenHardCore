@@ -1,8 +1,8 @@
 package net.mov51.aspenhardcore;
 
 import net.mov51.aspenhardcore.util.ConfigHelper;
-import net.mov51.aspenhardcore.util.HourDayCounter;
-import net.mov51.aspenhardcore.util.MinecraftDayCounter;
+import net.mov51.aspenhardcore.util.dayCounting.HourDayCounter;
+import net.mov51.aspenhardcore.util.dayCounting.MinecraftDayCounter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AspenHardCore extends JavaPlugin {

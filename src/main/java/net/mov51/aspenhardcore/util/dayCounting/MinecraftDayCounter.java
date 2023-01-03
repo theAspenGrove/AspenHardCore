@@ -1,4 +1,4 @@
-package net.mov51.aspenhardcore.util;
+package net.mov51.aspenhardcore.util.dayCounting;
 
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
