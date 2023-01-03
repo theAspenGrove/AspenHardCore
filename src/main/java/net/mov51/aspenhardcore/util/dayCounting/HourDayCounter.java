@@ -2,6 +2,8 @@ package net.mov51.aspenhardcore.util.dayCounting;
 
 import java.util.Timer;
 
+import static net.mov51.aspenhardcore.AspenHardCore.logHelper;
+
 public class HourDayCounter {
     public HourDayCounter(){
 
@@ -13,7 +15,7 @@ public class HourDayCounter {
     private static class HourDayTask extends java.util.TimerTask {
         @Override
         public void run() {
-            System.out.println("New Hour!");
+            logHelper.sendLogInfo("New Day");
         }
     }
 }

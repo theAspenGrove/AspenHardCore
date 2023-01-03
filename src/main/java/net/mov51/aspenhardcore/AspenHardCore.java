@@ -4,6 +4,7 @@ import net.mov51.aspenhardcore.commands.NewDayCommand;
 import net.mov51.aspenhardcore.util.ConfigHelper;
 import net.mov51.aspenhardcore.util.dayCounting.HourDayCounter;
 import net.mov51.aspenhardcore.util.dayCounting.MinecraftDayCounter;
+import net.mov51.periderm.logs.AspenLogHelper;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -15,9 +16,12 @@ public final class AspenHardCore extends JavaPlugin {
 
     public static MinecraftDayCounter minecraftDayCounter;
     public static HourDayCounter hourDayCounter;
+    public static AspenLogHelper logHelper;
 
     @Override
     public void onEnable() {
+        // register logger
+        logHelper = new AspenLogHelper(this.getLogger(), this.getDescription().getName());
         // Plugin startup logic
         plugin = this;
         configHelper = new ConfigHelper(plugin);

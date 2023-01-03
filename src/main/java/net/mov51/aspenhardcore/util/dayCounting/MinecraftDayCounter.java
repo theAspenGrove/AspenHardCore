@@ -32,9 +32,6 @@ public class MinecraftDayCounter {
     }
     public void compareTime(long time, World world, long skipAmount){
         if(time >= (worldTime - 24000)){
-            System.out.println(skipAmount);
-            addTime(skipAmount);
-            System.out.println(worldTime + 24000);
             worldTime = world.getGameTime();
         }
     }

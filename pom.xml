@@ -51,6 +51,10 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/theAspenGrove/Periderm/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -59,6 +63,11 @@
             <artifactId>paper-api</artifactId>
             <version>1.19.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.mov51</groupId>
+            <artifactId>periderm</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 </project>

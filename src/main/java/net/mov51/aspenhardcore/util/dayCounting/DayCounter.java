@@ -1,7 +1,9 @@
 package net.mov51.aspenhardcore.util.dayCounting;
 
+import static net.mov51.aspenhardcore.AspenHardCore.logHelper;
+
 public class DayCounter {
     public static void newDay(){
-        System.out.println("DayCounter: New Day!");
+        logHelper.sendLogInfo("New Day");
     }
 }
