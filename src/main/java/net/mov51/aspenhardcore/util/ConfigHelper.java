@@ -41,27 +41,25 @@ public class ConfigHelper {
         return world;
     }
     public void setMethod(){
-        switch (dayMethod){
+        switch (this.getDayMethod()){
             case "hours":
-                System.out.println("Hours");
                 logHelper.sendLogInfo("Using hours to  \"day\" method");
                 logHelper.sendLogInfo("Every " + this.getHoursToDay() + " hours is a \"day\"");
                 hourDayCounter.start();
                 break;
             case "game-day":
-                System.out.println("Game Day");
                 logHelper.sendLogInfo("Using game day to \"day\" method");
                 logHelper.sendLogInfo("Every minecraft day will ce counted as a \"day\"");
                 plugin.getServer().getPluginManager().registerEvents(new TimeSkip(), plugin);
                 minecraftDayCounter.start();
                 break;
             case "command":
-                System.out.println("Command");
                 logHelper.sendLogInfo("Using command to \"day\" method");
                 logHelper.sendLogInfo("Day counter disabled");
                 break;
             default:
-                System.out.println("Invalid day method!");
+                logHelper.sendLogSevere("Invalid day method!");
+                logHelper.sendLogSevere("Please check your config.yml");
         }
     }
 
