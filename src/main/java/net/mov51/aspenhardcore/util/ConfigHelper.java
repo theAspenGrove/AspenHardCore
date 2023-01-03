@@ -45,7 +45,7 @@ public class ConfigHelper {
             case "hours":
                 System.out.println("Hours");
                 logHelper.sendLogInfo("Using hours to  \"day\" method");
-                logHelper.sendLogInfo("Every " + hoursToDay + " hours is a \"day\"");
+                logHelper.sendLogInfo("Every " + this.getHoursToDay() + " hours is a \"day\"");
                 hourDayCounter.start();
                 break;
             case "game-day":
