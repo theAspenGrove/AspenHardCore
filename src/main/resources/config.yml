@@ -1,0 +1,7 @@
+hours-to-a-day: 24
+#How to count the days
+# hours | game-day | command
+day-method: "hours"
+world: "world"
+ticks-in-a-game-day: 24000
+time-check-frequency: 600
