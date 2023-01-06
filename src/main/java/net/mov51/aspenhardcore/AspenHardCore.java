@@ -35,14 +35,13 @@ public final class AspenHardCore extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        logHelper.sendLogInfo("AspenHardCore has been disabled!");
+        logHelper.sendLogInfo("Stopping Enabled Day Counters...");
         if(hourDayCounter.isRunning()){
-            logHelper.sendLogInfo("saving passed time...");
-            configHelper.savePassedTime(hourDayCounter.getPassedTime());
-            logHelper.sendLogInfo("saved passed time!");
-            logHelper.sendLogInfo("stopping day counter...");
             hourDayCounter.stop();
-            logHelper.sendLogInfo("stopped day counter!");
         }
+        if(minecraftDayCounter.isRunning()){
+            minecraftDayCounter.stop();
+        }
+        logHelper.sendLogInfo("AspenHardCore has been disabled!");
     }
 }

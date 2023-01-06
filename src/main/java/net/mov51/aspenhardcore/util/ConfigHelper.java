@@ -1,7 +1,6 @@
 package net.mov51.aspenhardcore.util;
 
 import net.mov51.aspenhardcore.events.TimeSkip;
-import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
 import static net.mov51.aspenhardcore.AspenHardCore.*;
@@ -11,19 +10,18 @@ public class ConfigHelper {
     private final String dayMethod;
     private final long ticksToGameDay;
     private final long timeCheckFrequency;
-    private final World world;
+    private final long savedPassedGameTime;
+    private final long savedPassedServerTime;
     public ConfigHelper(Plugin plugin){
         plugin.saveDefaultConfig();
         this.hoursToDay = plugin.getConfig().getInt("hours-to-a-day");
         this.dayMethod = plugin.getConfig().getString("day-method");
         String worldName = plugin.getConfig().getString("world") == null ? "world" : plugin.getConfig().getString("world");
         assert worldName != null;
-        this.world = plugin.getServer().getWorld(worldName);
         this.ticksToGameDay = plugin.getConfig().getInt("ticks-in-a-game-day");
         this.timeCheckFrequency = plugin.getConfig().getInt("time-check-frequency");
-        if (world == null){
-            System.out.println("World not found!");
-        }
+        this.savedPassedGameTime = plugin.getConfig().getLong("passed-game-time");
+        this.savedPassedServerTime = plugin.getConfig().getLong("passed-server-time");
     }
     public int getHoursToDay(){
         return hoursToDay;
@@ -37,17 +35,25 @@ public class ConfigHelper {
     public Long getTimeCheckFrequency(){
         return timeCheckFrequency;
     }
-    public void savePassedTime(long time){
-        plugin.getConfig().set("passed-time", time);
+    public void savePassedServerTime(long time){
+        plugin.getConfig().set("passed-server-time", time);
         plugin.saveConfig();
+        logHelper.sendLogInfo("Saved passed game time: " + time);
     }
-    public long getSavedPassedTime(){
-        System.out.println("getting saved passed time...");
-        System.out.println(plugin.getConfig().getLong("passed-time"));
-        return plugin.getConfig().getLong("passed-time");
+    public long getSavedPassedServerTime(){
+        logHelper.sendLogInfo("getting saved passed time...");
+        logHelper.sendLogInfo("Passed server time:" + savedPassedServerTime);
+        return plugin.getConfig().getLong("passed-server-time");
     }
-    public World getWorld(){
-        return world;
+    public void savePassedGameTime(long time){
+        plugin.getConfig().set("passed-game-time", time);
+        plugin.saveConfig();
+        logHelper.sendLogInfo("Saved passed game time: " + time);
+    }
+    public long getSavedPassedGameTime() {
+        logHelper.sendLogInfo("getting saved gamed passed time...");
+        logHelper.sendLogInfo("Passed game time:" + savedPassedGameTime);
+        return plugin.getConfig().getLong("passed-server-time");
     }
     public void setMethod(){
         switch (this.getDayMethod()){

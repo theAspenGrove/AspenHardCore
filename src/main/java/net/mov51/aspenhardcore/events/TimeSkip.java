@@ -10,6 +10,6 @@ public class TimeSkip implements Listener {
     @EventHandler
     public void onTimeSkip(TimeSkipEvent event){
         System.out.println(event.getWorld().getGameTime());
-        minecraftDayCounter.compareTime(event.getWorld().getFullTime(),event.getWorld(), event.getSkipAmount());
+        minecraftDayCounter.setPassedGameTime(event.getWorld().getFullTime());
     }
 }
