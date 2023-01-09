@@ -1,13 +1,19 @@
 package net.mov51.aspenhardcore;
 
 import net.mov51.aspenhardcore.commands.NewDayCommand;
+import net.mov51.aspenhardcore.events.PlayerJoinedEvent;
+import net.mov51.aspenhardcore.events.PlayerLeftEvent;
 import net.mov51.aspenhardcore.util.ConfigHelper;
+import net.mov51.aspenhardcore.util.JoinedPlayer;
+import net.mov51.aspenhardcore.util.PlayPeriodForDay;
 import net.mov51.aspenhardcore.util.dayCounting.HourDayCounter;
 import net.mov51.aspenhardcore.util.dayCounting.MinecraftDayCounter;
 import net.mov51.periderm.logs.AspenLogHelper;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.UUID;
 
 public final class AspenHardCore extends JavaPlugin {
 
@@ -17,6 +23,9 @@ public final class AspenHardCore extends JavaPlugin {
     public static MinecraftDayCounter minecraftDayCounter;
     public static HourDayCounter hourDayCounter;
     public static AspenLogHelper logHelper;
+
+    public static HashMap<UUID, JoinedPlayer> joinedPlayers = new HashMap<>();
+    public static HashMap<UUID, PlayPeriodForDay> playPeriods = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -30,6 +39,9 @@ public final class AspenHardCore extends JavaPlugin {
         configHelper.setMethod();
         //register newDayCommand
         Objects.requireNonNull(getCommand("newday")).setExecutor(new NewDayCommand());
+        //register events
+        getServer().getPluginManager().registerEvents(new PlayerJoinedEvent(), this);
+        getServer().getPluginManager().registerEvents(new PlayerLeftEvent(), this);
     }
 
     @Override
