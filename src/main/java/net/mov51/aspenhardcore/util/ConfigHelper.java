@@ -1,6 +1,7 @@
 package net.mov51.aspenhardcore.util;
 
 import net.mov51.aspenhardcore.events.TimeSkip;
+import org.bukkit.World;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.Plugin;
 
@@ -13,6 +14,7 @@ public class ConfigHelper {
     private final long timeCheckFrequency;
     private long savedPassedGameTime;
     private long savedPassedServerTime;
+    private World world;
     public ConfigHelper(Plugin plugin){
         //get config values
         Configuration config = plugin.getConfig();
@@ -31,6 +33,14 @@ public class ConfigHelper {
         this.savedPassedGameTime = config.getLong("passed-game-time");
         //The number of ticks passed in the server for the server time "day" counter
         this.savedPassedServerTime = config.getLong("passed-server-time");
+        //The world to use for the time check
+        world = plugin.getServer().getWorld("world");
+        //verify that the world is not null
+        if(world == null){
+            logHelper.sendLogSevere("World is null! Please check your config.yml!");
+            logHelper.sendLogSevere("Disabling plugin");
+            plugin.getServer().getPluginManager().disablePlugin(plugin);
+        }
     }
     public int getHoursToDay(){
         return hoursToDay;
@@ -49,6 +59,9 @@ public class ConfigHelper {
         plugin.saveConfig();
         this.savedPassedServerTime = time;
         logHelper.sendLogInfo("Saved passed game time: " + time);
+    }
+    public World getWorld(){
+        return world;
     }
     public long getSavedPassedServerTime(){
         logHelper.sendLogInfo("getting saved passed time...");

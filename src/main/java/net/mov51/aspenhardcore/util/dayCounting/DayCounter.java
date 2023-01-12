@@ -1,24 +1,20 @@
 package net.mov51.aspenhardcore.util.dayCounting;
 
-import org.bukkit.Bukkit;
+import net.mov51.aspenhardcore.util.PlayPeriod;
 
+import java.util.List;
 import java.util.UUID;
 
 import static net.mov51.aspenhardcore.AspenHardCore.*;
+import static net.mov51.aspenhardcore.util.database.DatabaseConnector.*;
 
 public class DayCounter {
     private static long day = 0;
     public static void newDay(){
         logHelper.sendLogInfo("---New Day!---");
+        sumAllUsers();
         day++;
-        //todo sum up all the time played by each player
-        //todo reset the playPeriods
-        //iterate over PlayPeriodForDay
-        for(UUID uuid : playPeriods.keySet()){
-            //iterate over PlayPeriod
-            logHelper.sendLogInfo(Bukkit.getOfflinePlayer(uuid).getName() + " has played for " + playPeriods.get(uuid).sumOfTimePlayed() + " ticks in the last day.");
-            playPeriods.get(uuid).clearPlayPeriods();
-        }
+        startNewDayForAllPlayers(configHelper.getWorld().getFullTime());
 
 
         if(hourDayCounter.isRunning()){
@@ -32,5 +28,22 @@ public class DayCounter {
     }
     public static long getDay(){
         return day;
+    }
+    private static void startNewDayForAllPlayers(Long time){
+        List<PlayPeriod> playPeriods = getAllActivePlayPeriods();
+        if(playPeriods != null && playPeriods.size() > 0){
+            for(PlayPeriod playPeriod : playPeriods){
+                finishPlayPeriod(playPeriod.getUUID(),time);
+                addNewPlayPeriod(playPeriod.getUUID(),time,getDay());
+            }
+        }
+    }
+    private static void sumAllUsers(){
+        List<UUID> uuidList = getUUIDsOnDay(getDay());
+        if(uuidList != null && uuidList.size() > 0){
+            for(UUID uuid : uuidList){
+                addNewDaySum(uuid,getDay(),getSumOfTimeDay(uuid,getDay()));
+            }
+        }
     }
 }

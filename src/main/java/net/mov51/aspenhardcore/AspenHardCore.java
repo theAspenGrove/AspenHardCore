@@ -4,17 +4,13 @@ import net.mov51.aspenhardcore.commands.NewDayCommand;
 import net.mov51.aspenhardcore.events.PlayerJoinedEvent;
 import net.mov51.aspenhardcore.events.PlayerLeftEvent;
 import net.mov51.aspenhardcore.util.ConfigHelper;
-import net.mov51.aspenhardcore.util.JoinedPlayer;
-import net.mov51.aspenhardcore.util.PlayPeriodForDay;
 import net.mov51.aspenhardcore.util.database.DatabaseConnector;
 import net.mov51.aspenhardcore.util.dayCounting.HourDayCounter;
 import net.mov51.aspenhardcore.util.dayCounting.MinecraftDayCounter;
 import net.mov51.periderm.logs.AspenLogHelper;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
 import java.util.Objects;
-import java.util.UUID;
 
 public final class AspenHardCore extends JavaPlugin {
 
@@ -24,9 +20,6 @@ public final class AspenHardCore extends JavaPlugin {
     public static MinecraftDayCounter minecraftDayCounter;
     public static HourDayCounter hourDayCounter;
     public static AspenLogHelper logHelper;
-
-    public static HashMap<UUID, JoinedPlayer> joinedPlayers = new HashMap<>();
-    public static HashMap<UUID, PlayPeriodForDay> playPeriods = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -45,6 +38,7 @@ public final class AspenHardCore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerLeftEvent(), this);
         DatabaseConnector.connect();
         DatabaseConnector.makeTables();
+        //get and verify world
     }
 
     @Override
@@ -57,6 +51,10 @@ public final class AspenHardCore extends JavaPlugin {
         if(minecraftDayCounter.isRunning()){
             minecraftDayCounter.stop();
         }
+        logHelper.sendLogInfo("Saving all play periods...");
+
+        logHelper.sendLogInfo("Closing Database Connection...");
+        DatabaseConnector.close();
         logHelper.sendLogInfo("AspenHardCore has been disabled!");
     }
 }

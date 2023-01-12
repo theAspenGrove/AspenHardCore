@@ -1,7 +1,5 @@
 package net.mov51.aspenhardcore.events;
 
-import net.mov51.aspenhardcore.util.PlayPeriod;
-import net.mov51.aspenhardcore.util.PlayPeriodForDay;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +17,6 @@ public class PlayerLeftEvent implements Listener {
         //log the time the player was online to console
         logHelper.sendLogInfo("Player left event fired"); //todo remove debug message
         //todo log to database
-        getActivePlayPeriod(p.getUniqueId());
         logHelper.sendLogInfo("Player joined at: " + getLastPlayPeriod(p.getUniqueId()).getJoinedTime());
         logHelper.sendLogInfo("Player left at: " + getLastPlayPeriod(p.getUniqueId()).getLeftTime());
         logHelper.sendLogInfo("Player was online for: " + getLastPlayPeriod(p.getUniqueId()).getTimePlayed());
