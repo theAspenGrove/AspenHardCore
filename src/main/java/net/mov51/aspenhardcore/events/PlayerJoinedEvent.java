@@ -7,6 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import static net.mov51.aspenhardcore.AspenHardCore.joinedPlayers;
+import static net.mov51.aspenhardcore.util.database.DatabaseConnector.addNewPlayPeriod;
+import static net.mov51.aspenhardcore.util.dayCounting.DayCounter.getDay;
 
 public class PlayerJoinedEvent implements Listener {
     @EventHandler
@@ -14,5 +16,6 @@ public class PlayerJoinedEvent implements Listener {
         Player p = event.getPlayer();
         p.getLocation().getWorld().getFullTime();
         joinedPlayers.put(p.getUniqueId(), new JoinedPlayer(p.getLocation().getWorld().getFullTime()));
+        addNewPlayPeriod(p.getUniqueId(),p.getLocation().getWorld().getFullTime(),getDay());
     }
 }

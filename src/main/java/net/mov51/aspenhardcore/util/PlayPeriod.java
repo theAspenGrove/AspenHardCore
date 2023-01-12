@@ -5,17 +5,12 @@ import org.bukkit.entity.Player;
 public class PlayPeriod {
     private final long joinedTime;
     private final long leftTime;
-    private final Player p;
-    public PlayPeriod(long joinedTime, long leftTime, Player p){
+    public PlayPeriod(long joinedTime, long leftTime){
         this.joinedTime = joinedTime;
         this.leftTime = leftTime;
-        this.p = p;
     }
     public long getJoinedTime(){
         return joinedTime;
-    }
-    public Player getPlayer(){
-        return p;
     }
     public long getLeftTime(){
         return leftTime;

@@ -6,6 +6,7 @@ import net.mov51.aspenhardcore.events.PlayerLeftEvent;
 import net.mov51.aspenhardcore.util.ConfigHelper;
 import net.mov51.aspenhardcore.util.JoinedPlayer;
 import net.mov51.aspenhardcore.util.PlayPeriodForDay;
+import net.mov51.aspenhardcore.util.database.DatabaseConnector;
 import net.mov51.aspenhardcore.util.dayCounting.HourDayCounter;
 import net.mov51.aspenhardcore.util.dayCounting.MinecraftDayCounter;
 import net.mov51.periderm.logs.AspenLogHelper;
@@ -42,6 +43,8 @@ public final class AspenHardCore extends JavaPlugin {
         //register events
         getServer().getPluginManager().registerEvents(new PlayerJoinedEvent(), this);
         getServer().getPluginManager().registerEvents(new PlayerLeftEvent(), this);
+        DatabaseConnector.connect();
+        DatabaseConnector.makeTables();
     }
 
     @Override

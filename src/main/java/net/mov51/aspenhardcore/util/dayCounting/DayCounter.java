@@ -7,8 +7,10 @@ import java.util.UUID;
 import static net.mov51.aspenhardcore.AspenHardCore.*;
 
 public class DayCounter {
+    private static long day = 0;
     public static void newDay(){
         logHelper.sendLogInfo("---New Day!---");
+        day++;
         //todo sum up all the time played by each player
         //todo reset the playPeriods
         //iterate over PlayPeriodForDay
@@ -27,5 +29,8 @@ public class DayCounter {
             logHelper.sendLogInfo("resetting passed time");
             minecraftDayCounter.resetPassedTime();
         }
+    }
+    public static long getDay(){
+        return day;
     }
 }
